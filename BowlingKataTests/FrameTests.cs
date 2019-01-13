@@ -1,6 +1,7 @@
 using System;
 using BowlingKata;
 using Xunit;
+using Xunit.Sdk;
 
 namespace BowlingKataTests
 {
@@ -12,6 +13,7 @@ namespace BowlingKataTests
             var frame = new Frame();
 
             Assert.Equal(0, frame.KnockedPins);
+            Assert.False(frame.Completed);
         }
 
         [Fact]
@@ -22,6 +24,7 @@ namespace BowlingKataTests
             frame.Roll(4);
 
             Assert.Equal(4, frame.KnockedPins);
+            Assert.False(frame.Completed);
         }
 
         [Fact]
@@ -33,6 +36,7 @@ namespace BowlingKataTests
             frame.Roll(2);
 
             Assert.Equal(6, frame.KnockedPins);
+            Assert.True(frame.Completed);
         }
 
         [Fact]
@@ -65,6 +69,19 @@ namespace BowlingKataTests
 
             Assert.Equal(10, frame.KnockedPins);
             Assert.True(frame.HasSpare);
+            Assert.True(frame.Completed);
+        }
+
+        [Fact]
+        public void FrameWithStrike()
+        {
+            var frame = new Frame();
+
+            frame.Roll(10);
+
+            Assert.Equal(10, frame.KnockedPins);
+            Assert.True(frame.HasStrike);
+            Assert.True(frame.Completed);
         }
     }
 }
