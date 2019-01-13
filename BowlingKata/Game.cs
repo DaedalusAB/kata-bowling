@@ -17,35 +17,24 @@ namespace BowlingKata
 
         public int Score()
         {
-           return  _frames.Sum(f => f.KnockedPins);
+            return _frames.Sum(f => f.KnockedPins);
         }
 
         public void Roll(int knockedPins)
         {
-            if (CurrentFrame != null && !CurrentFrame.Completed)
-            {
-                CurrentFrame.Roll(knockedPins);
-            }
-            else if(CompletedFrames < FramesPerGame)
-            {
-                NewFrame().Roll(knockedPins);
-            }
-            else 
+            if (CompletedFrames == FramesPerGame)
                 throw new InvalidOperationException();
+
+            if (CurrentFrame == null || CurrentFrame.Completed)
+                _frames.Add(new Frame());
+
+            CurrentFrame?.Roll(knockedPins);
         }
 
         private Frame CurrentFrame =>
             _frames.LastOrDefault();
 
-        private Frame NewFrame()
-        {
-            var newFrame = new Frame();
-            _frames.Add(newFrame);
-
-            return newFrame;
-        }
-
         private int CompletedFrames =>
-            _frames.Count;
+            _frames.Count(f => f.Completed);
     }
 }
