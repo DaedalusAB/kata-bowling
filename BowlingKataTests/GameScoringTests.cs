@@ -8,7 +8,7 @@ namespace BowlingKataTests
         [Fact]
         public void SpareThenRegularFrame()
         {
-            var game = new Game();
+            var game = new Game(new GameScoreService());
 
             game.TakeTwoRolls(5, 5);
             game.TakeOneRoll(5);
@@ -20,7 +20,7 @@ namespace BowlingKataTests
         [Fact]
         public void StrikeThenRegularFrame()
         {
-            var game = new Game();
+            var game = new Game(new GameScoreService());
 
             game.TakeOneRoll(10);
             game.TakeTwoRolls(5, 4);
@@ -31,7 +31,7 @@ namespace BowlingKataTests
         [Fact]
         public void TwoSparesThenFrame()
         {
-            var game = new Game();
+            var game = new Game(new GameScoreService());
 
             game.TakeTwoRolls(5, 5);
             game.TakeTwoRolls(5, 5);
@@ -43,7 +43,7 @@ namespace BowlingKataTests
         [Fact]
         public void TwoStrikesThenAFrame()
         {
-            var game = new Game();
+            var game = new Game(new GameScoreService());
 
             game.Strike();
             game.Strike();

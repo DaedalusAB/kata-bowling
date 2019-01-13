@@ -6,12 +6,14 @@ namespace BowlingKata
 {
     public class Game
     {
+        private readonly GameScoreService _scoreService;
         private const int FramesPerGame = 10;
 
         private readonly List<Frame> _frames;
 
-        public Game()
+        public Game(GameScoreService scoreService)
         {
+            _scoreService = scoreService ?? throw new ArgumentNullException(nameof(scoreService));
             _frames = new List<Frame>();
         }
 
@@ -24,37 +26,13 @@ namespace BowlingKata
                 score += frame.KnockedPins;
 
                 if (frame.HasSpare)
-                    score += GetRollAfterFrame(frame);
+                    score += _scoreService.GetRollAfterFrame(_frames, frame);
 
                 if (frame.HasStrike)
-                    score += GetTwoRollAfterFrame(frame);
+                    score += _scoreService.GetTwoRollsAfterFrame(_frames, frame);
             }
 
             return score;
-        }
-
-        private int GetRollAfterFrame(Frame frame)
-        {
-            var frameIndex = _frames.IndexOf(frame);
-            var rollIndex = 0;
-
-            for (var i = 0; i <= frameIndex; i++)
-                rollIndex += _frames[i].Rolls.Count();
-
-            return _frames.SelectMany(f => f.Rolls).ToArray()[rollIndex];
-        }
-
-        private int GetTwoRollAfterFrame(Frame frame)
-        {
-            var frameIndex = _frames.IndexOf(frame);
-            var rollIndex = 0;
-
-            for (var i = 0; i <= frameIndex; i++)
-                rollIndex += _frames[i].Rolls.Count();
-
-            var allRolls = _frames.SelectMany(f => f.Rolls).ToArray();
-
-            return allRolls[rollIndex] + allRolls[rollIndex + 1];
         }
 
 
