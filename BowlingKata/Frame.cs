@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BowlingKata
 {
@@ -7,29 +9,37 @@ namespace BowlingKata
         private const int PinsPerFrame = 10;
         private const int RollsPerFrame = 2;
 
-        private int _rollsMade;
+        private readonly List<int> _rolls;
 
-        public int KnockedPins { get; private set; }
-
-        public bool HasSpare =>
-            _rollsMade == RollsPerFrame && KnockedPins == PinsPerFrame;
-
-        public bool HasStrike =>
-            _rollsMade == 1 && KnockedPins == PinsPerFrame;
-
-        public bool Completed =>
-            HasStrike || _rollsMade == RollsPerFrame;
+        public Frame()
+        {
+            _rolls = new List<int>();
+        }
 
         public void Roll(int knockedPins)
         {
-            if(_rollsMade == RollsPerFrame) 
+            if (RollsMade == RollsPerFrame)
                 throw new InvalidOperationException(nameof(Roll));
 
-            if(KnockedPins + knockedPins > PinsPerFrame)
+            if (KnockedPins + knockedPins > PinsPerFrame)
                 throw new ArgumentException(nameof(knockedPins));
 
-            _rollsMade++;
-            KnockedPins += knockedPins;
+            _rolls.Add(knockedPins);
         }
+
+        private int RollsMade =>
+            _rolls.Count;
+
+        public int KnockedPins =>
+            _rolls.Sum();
+
+        public bool HasSpare =>
+            RollsMade == RollsPerFrame && KnockedPins == PinsPerFrame;
+
+        public bool HasStrike =>
+            RollsMade == 1 && KnockedPins == PinsPerFrame;
+
+        public bool Completed =>
+            HasStrike || RollsMade == RollsPerFrame;
     }
 }
