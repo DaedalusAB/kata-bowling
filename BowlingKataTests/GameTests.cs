@@ -19,7 +19,7 @@ namespace BowlingKataTests
         {
             var game = new Game();
 
-            TakeSingleRoll(game, 1);
+            game.TakeOneRoll(1);
 
             Assert.Equal(1, game.Score());
         }
@@ -29,8 +29,8 @@ namespace BowlingKataTests
         {
             var game = new Game();
 
-            TakeTwoRolls(game, 4, 4);
-            TakeSingleRoll(game, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeOneRoll(4);
 
             Assert.Equal(12, game.Score());
         }
@@ -40,16 +40,16 @@ namespace BowlingKataTests
         {
             var game = new Game();
 
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
 
 
             Assert.Equal(80, game.Score());
@@ -60,30 +60,18 @@ namespace BowlingKataTests
         {
             var game = new Game();
 
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
-            TakeTwoRolls(game, 4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
+            game.TakeTwoRolls(4, 4);
 
             Assert.Throws<InvalidOperationException>(() => game.Roll(1));
-        }
-
-        private static void TakeSingleRoll(Game game, int roll)
-        {
-            game.Roll(roll);
-        }
-
-
-        private static void TakeTwoRolls(Game game, int firstRoll, int secondRoll)
-        {
-            game.Roll(firstRoll);
-            game.Roll(secondRoll);
         }
     }
 }
