@@ -41,5 +41,8 @@ namespace BowlingKata
 
         public bool Completed =>
             HasStrike || RollsMade == RollsPerFrame;
+
+        public IEnumerable<int> Rolls =>
+            _rolls;
     }
 }
