@@ -17,24 +17,8 @@ namespace BowlingKata
             _frames = new List<Frame>();
         }
 
-        public int Score()
-        {
-            var score = 0;
-
-            foreach (var frame in _frames)
-            {
-                score += frame.KnockedPins;
-
-                if (frame.HasSpare)
-                    score += _scoreService.GetRollsAfterFrame(_frames, frame, 1);
-
-                if (frame.HasStrike)
-                    score += _scoreService.GetRollsAfterFrame(_frames, frame, 2);
-            }
-
-            return score;
-        }
-
+        public int Score() => 
+            _scoreService.CalculateScore(_frames);
 
         public void Roll(int knockedPins)
         {
