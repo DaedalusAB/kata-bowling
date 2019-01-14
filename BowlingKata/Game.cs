@@ -26,10 +26,10 @@ namespace BowlingKata
                 score += frame.KnockedPins;
 
                 if (frame.HasSpare)
-                    score += _scoreService.GetRollAfterFrame(_frames, frame);
+                    score += _scoreService.GetRollsAfterFrame(_frames, frame, 1);
 
                 if (frame.HasStrike)
-                    score += _scoreService.GetTwoRollsAfterFrame(_frames, frame);
+                    score += _scoreService.GetRollsAfterFrame(_frames, frame, 2);
             }
 
             return score;

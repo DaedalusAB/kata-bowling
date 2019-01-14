@@ -5,7 +5,7 @@ namespace BowlingKata
 {
     public class GameScoreService
     {
-        public int GetRollAfterFrame(IEnumerable<Frame> allFrames, Frame frame)
+        public int GetRollsAfterFrame(IEnumerable<Frame> allFrames, Frame frame, int rollCount)
         {
             var frameIndex = allFrames
                 .ToList()
@@ -14,22 +14,9 @@ namespace BowlingKata
             return allFrames
                 .Skip(frameIndex + 1)
                 .SelectMany(f => f.Rolls)
-                .Take(1)
+                .ToArray()
+                .Take(rollCount)
                 .Sum();
-        }
-
-        public int GetTwoRollsAfterFrame(IEnumerable<Frame> allFrames, Frame frame)
-        {
-            var frameIndex = allFrames
-                .ToList()
-                .IndexOf(frame);
-
-            var rollsAfterFrame = allFrames
-                .Skip(frameIndex + 1)
-                .SelectMany(f => f.Rolls)
-                .ToArray();
-
-            return rollsAfterFrame.Take(2).Sum();
         }
     }
 }
