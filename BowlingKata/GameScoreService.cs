@@ -12,9 +12,10 @@ namespace BowlingKata
                 .IndexOf(frame);
 
             return allFrames
-                 .Skip(frameIndex + 1)
-                 .SelectMany(f => f.Rolls)
-                 .First();
+                .Skip(frameIndex + 1)
+                .SelectMany(f => f.Rolls)
+                .Take(1)
+                .Sum();
         }
 
         public int GetTwoRollsAfterFrame(IEnumerable<Frame> allFrames, Frame frame)
@@ -28,7 +29,7 @@ namespace BowlingKata
                 .SelectMany(f => f.Rolls)
                 .ToArray();
 
-            return rollsAfterFrame[0] + rollsAfterFrame[1];
+            return rollsAfterFrame.Take(2).Sum();
         }
     }
 }

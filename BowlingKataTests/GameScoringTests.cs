@@ -51,5 +51,26 @@ namespace BowlingKataTests
 
             Assert.Equal(35, game.Score());
         }
+
+        [Fact]
+        public void SpareThenNoRolls()
+        {
+            var game = new Game(new GameScoreService());
+
+            game.TakeTwoRolls(4, 6);
+
+            Assert.Equal(10, game.Score());
+        }
+
+        [Fact]
+        public void StrikeThenOnlyOneRoll()
+        {
+            var game = new Game(new GameScoreService());
+
+            game.Strike();
+            game.TakeOneRoll(1);
+
+            Assert.Equal(12, game.Score());
+        }
     }
 }
